@@ -2,12 +2,13 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.response import Response
-from app.serializers import SumationSerializer, HistorySerializer, TotalSerializer
+from app.serializers import SumationSerializer, HistorySerializer
 from app.models import SumationRepo
-from rest_framework.throttling import UserRateThrottle
+from rest_framework.throttling import AnonRateThrottle
 
 class Sum(APIView):
- 
+    throttle_classes = [AnonRateThrottle]
+    
     def get(self, request, a=0, b=0):
         content = {
             'a':a,
